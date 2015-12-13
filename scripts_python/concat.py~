@@ -1,0 +1,116 @@
+
+import numpy as np
+from astropy.io import fits
+import pylab
+
+image_list = ['/home/jeffrey/Desktop/mass_11_3/ARP118.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/IC0944.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/IC0994.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/IC1079.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/IC1755.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/IC3598.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0155.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0160.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0171.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0217.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0364.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0447.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0499.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0507.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0515.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0528.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0570.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0774.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0833.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0842.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC0924.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC1026.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC1041.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC1060.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC1132.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC1167.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC1349.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC2486.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC2487.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC2507.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC2522.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC2554.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC3106.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC3303.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC4816.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC4874.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC4956.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5157.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5267.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5513.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5532.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5549.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5598.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5614.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5739.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5797.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5908.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5928.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC5987.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC6023.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC6081.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC6146.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC6150.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC6314.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC6338.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC6977.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC6978.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7025.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7236.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7311.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7550.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7563.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7671.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7684.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7711.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7722.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7738.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7782.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC7824.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC6150B.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC01062.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC01271.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC01274.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC01749.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC02018.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC02229.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC03151.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC04136.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC05113.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC05771.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC06036.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC06312.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC08322.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC09492.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC09629.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC10097.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC10380.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC10695.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC10905.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC11228.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC11694.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC11958.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/UGC12274.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/VIIZw700.p_e.rad_SFH_lum_Mass.fits.gz',
+'/home/jeffrey/Desktop/mass_11_3/NGC6166NED01.p_e.rad_SFH_lum_Mass.fits.gz']
+image_concat = []
+
+for image in image_list:
+    image_concat.append(fits.getdata(image))
+
+img_concat_lin= (np.power(10, image_concat))/95
+
+final_image = np.zeros(shape=img_concat_lin[0].shape)
+
+for image in img_concat_lin:
+    final_image += image
+
+outfile = 'all_mass_11_2_SFH_Mass.fits.gz'
+
+hdu = fits.PrimaryHDU(final_image)
+hdu.writeto(outfile, clobber=True)

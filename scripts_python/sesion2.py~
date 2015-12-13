@@ -1,0 +1,41 @@
+# coding: utf-8
+import numpy as np
+import matplotlib.pyplot as plt
+import astropy
+from astropy.io import fits
+image_list = [ AGN_'+n+'.fits.gz for n in  ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18,'19','20','21','22','23','24']]
+image_list = [ download_file(/home/jeffrey/Desktop/AGNS/AGN_'+n+'.fits.gz, cache=true) for n in  ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18,'19','20','21','22','23','24']]
+image_list = [ download_file(/home/jeffrey/Desktop/AGNS/AGN_'+n+'.fits.gz, cache=true) for n in  ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18,'19','20','21','22','23','24']]
+image_list = [ download_file(/home/jeffrey/Desktop/AGNS/AGN_'+n+'.fits.gz, cache=true) for n in  ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18,'19','20','21','22','23','24']]
+image_list = [ download_file('/home/jeffrey/Desktop/AGNS/AGN_'+n+'.fits.gz', cache=true) for n in  ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18,'19','20','21','22','23','24']]
+get_ipython().magic(u'pwd ')
+image_list = [ 'AGN_1.fitz.gz','AGN_2.fitz.gz','AGN_3.fitz.gz','AGN_4.fitz.gz','AGN_5.fitz.gz','AGN_6.fitz.gz','AGN_7.fitz.gz','AGN_8.fitz.gz','AGN_9.fitz.gz','AGN_10.fitz.gz','AGN_11.fitz.gz','AGN_12.fitz.gz','AGN_13.fitz.gz','AGN_14.fitz.gz','AGN_15.fitz.gz','AGN_16.fitz.gz','AGN_17.fitz.gz','AGN_18.fitz.gz','AGN_19.fitz.gz','AGN_20.fitz.gz','AGN_21.fitz.gz','AGN_22.fitz.gz','AGN_23.fitz.gz','AGN_24.fitz.gz',]
+image_concat =[]
+for image in imagelist:
+    image_concat.append(fits.getdata(image))
+    
+for image in image_list:
+    image_concat.append(fits.getdata(image))
+    
+image_list = [ 'AGN_1.fits.gz','AGN_2.fits.gz','AGN_3.fits.gz','AGN_4.fits.gz','AGN_5.fits.gz','AGN_6.fits.gz','AGN_7.fits.gz','AGN_8.fits.gz','AGN_9.fits.gz','AGN_10.fits.gz','AGN_11.fits.gz','AGN_12.fits.gz','AGN_13.fits.gz','AGN_14.fits.gz','AGN_15.fits.gz','AGN_16.fits.gz','AGN_17.fits.gz','AGN_18.fits.gz','AGN_19.fits.gz','AGN_20.fits.gz','AGN_21.fits.gz','AGN_22.fits.gz','AGN_23.fits.gz','AGN_24.fits.gz']
+image_concat =[]
+for image in image_list:
+    image_concat.append(fits.getdata(image))
+    
+final_image = np.zeros(shape=image_concat[0].shape)
+for image in image_concat:
+    final_image += image
+    
+image_hist = plt.hist(final_image.flat, 1000)
+image_hist = plt.hist(final_image.flat, 30)
+image_hist = plt.hist(final_image.flat, 1)
+image_hist = plt.hist(final_image.flat, 100000)
+image_hist = plt.hist(final_image.flat)
+plt.imshow()
+plt.imshow(final_image)
+plt.imshow(final_image)
+outfile = 'all_AGN_V.fits.gz'
+hdu = fits.PrimaryHDU(SFH_radial_V)
+hdu = fits.PrimaryHDU(final_image)
+hdu.writeto(outfile,clobber = True)
+get_ipython().magic(u'save sesion2 1-32')
