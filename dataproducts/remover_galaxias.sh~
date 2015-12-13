@@ -1,0 +1,7 @@
+
+#!/bin/sh -vx
+
+while read line
+do
+cp "$line" /home/jeffrey/Desktop/mass_11_3/
+done < /home/jeffrey/Desktop/dataproducts/mass_11_3.csv
